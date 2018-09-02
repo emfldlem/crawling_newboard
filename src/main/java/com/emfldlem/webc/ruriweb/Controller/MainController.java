@@ -20,7 +20,7 @@ public class MainController {
 
 
     @GetMapping("/ruriweb_hotdeal")
-    //@Scheduled(initialDelay = 10000, fixedDelay = 60000)
+    @Scheduled(initialDelay = 10000, fixedDelay = 60000)
     public void ruriweb_hotdeal()  throws IOException {
         File file = new File("C:/dev/txt/ruriweb_hotdeal.txt");
 
@@ -48,7 +48,7 @@ public class MainController {
         for(int i = 0; i<elem.size(); i++) {
             int lastId = readFileId(file);
             //String subject = "루리웹 "+elem.get(i).text();
-            String subject = elem.get(i).select(".deco").text();
+            String subject = "루리웹  " +  elem.get(i).select(".deco").text();
             String content =  subject + " " + elem.get(i).select(".deco").attr("href");
             //String a = test1.attr("href");
             //Elements test2 = test1.select("a[href]");
@@ -67,7 +67,8 @@ public class MainController {
         System.out.println("==================루리웹 스케줄러 종료==================");
     }
 
-    @GetMapping("/ppomppu")
+    //@GetMapping("/ppomppu")
+    @Scheduled(initialDelay = 10000, fixedDelay = 60000)
     public void ppomppu_ppomppu()  throws IOException {
         File file = new File("C:/dev/txt/ppomppu.txt");
 
@@ -85,7 +86,7 @@ public class MainController {
             Element elem1 = elem.get(i).parent();
             Element elem2 = elem.get(i).parent().parent().parent().parent().parent().parent().parent().child(0);
 
-            String subject = elem1.text();
+            String subject ="뽐뿌  " +  elem1.text();
             String contents = elem1.attr("href");
             String No = elem2.text();
 
