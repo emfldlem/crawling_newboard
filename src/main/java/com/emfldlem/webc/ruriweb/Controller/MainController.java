@@ -4,6 +4,7 @@ package com.emfldlem.webc.ruriweb.Controller;
 import com.emfldlem.webc.ruriweb.Mail.GmailSend;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,13 +17,14 @@ import java.util.Collections;
 public class MainController {
 
     GmailSend gmailSend = new GmailSend();
-    File file = new File("C:/dev/CYWorkspace/ruriweb/id.txt");
 
-    @GetMapping("/web1")
+
+    @GetMapping("/ruriweb_hotdeal")
     //@Scheduled(initialDelay = 10000, fixedDelay = 60000)
-    public void web1()  throws IOException {
+    public void ruriweb_hotdeal()  throws IOException {
+        File file = new File("C:/dev/txt/ruriweb_hotdeal.txt");
 
-        System.out.println("==================스케줄러 시작==================");
+        System.out.println("==================루리웹 스케줄러 시작==================");
 
         String URL = "http://bbs.ruliweb.com/ps/board/1020";
         Document doc = Jsoup.connect(URL).get();
@@ -44,7 +46,7 @@ public class MainController {
         }
 
         for(int i = 0; i<elem.size(); i++) {
-            int lastId = readFileId();
+            int lastId = readFileId(file);
             //String subject = "루리웹 "+elem.get(i).text();
             String subject = elem.get(i).select(".deco").text();
             String content =  subject + " " + elem.get(i).select(".deco").attr("href");
@@ -57,16 +59,52 @@ public class MainController {
                 System.out.println("subject =========" + subject);
 
                 gmailSend.GmailSet("swkim@bsgglobal.com", subject, content);
-                creatFileId(sid);
+                creatFileId(sid,file);
             }
 
         }
 
-        System.out.println("==================스케줄러 종료==================");
+        System.out.println("==================루리웹 스케줄러 종료==================");
+    }
+
+    @GetMapping("/ppomppu")
+    public void ppomppu_ppomppu()  throws IOException {
+        File file = new File("C:/dev/txt/ppomppu.txt");
+
+        System.out.println("==================뽐뿌 스케줄러 시작==================");
+
+        String URL = "http://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu";
+        Document doc = Jsoup.connect(URL).get();
+        Elements elem = doc.select(".list_title");
+        Collections.reverse(elem);
+
+
+        for(int i = 0; i<elem.size(); i++) {
+            int lastId = readFileId(file);
+
+            Element elem1 = elem.get(i).parent();
+            Element elem2 = elem.get(i).parent().parent().parent().parent().parent().parent().parent().child(0);
+
+            String subject = elem1.text();
+            String contents = elem1.attr("href");
+            String No = elem2.text();
+
+            int sid = Integer.parseInt(No);
+            if(sid > lastId) {
+                System.out.println("sid =========" + sid);
+                System.out.println("subject =========" + subject);
+
+                gmailSend.GmailSet("swkim@bsgglobal.com", subject, contents);
+                creatFileId(sid,file);
+            }
+
+        }
+
+        System.out.println("==================뽐뿌 스케줄러 종료==================");
     }
 
 
-    private int readFileId() {
+    private int readFileId(File file) {
 
         String strText = "";
         int nBuffer;
@@ -85,9 +123,9 @@ public class MainController {
 
 
     @GetMapping("/creatFileId")
-    public void creatFileId(int sid) throws IOException {
+    public void creatFileId(int sid, File file) throws IOException {
 
-        //File file = new File("C:/dev/CYWorkspace/ruriweb/id.txt");
+
         String String_sid = String.valueOf(sid);
         if(file.exists() == false) {
             System.out.println("파일 없음");
