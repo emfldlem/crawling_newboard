@@ -18,8 +18,8 @@ public class MainController {
     GmailSend gmailSend = new GmailSend();
     File file = new File("C:/dev/CYWorkspace/ruriweb/id.txt");
 
-    //@GetMapping("/web1")
-    @Scheduled(initialDelay = 10000, fixedDelay = 60000)
+    @GetMapping("/web1")
+    //@Scheduled(initialDelay = 10000, fixedDelay = 60000)
     public void web1()  throws IOException {
 
         System.out.println("==================스케줄러 시작==================");
@@ -45,13 +45,18 @@ public class MainController {
 
         for(int i = 0; i<elem.size(); i++) {
             int lastId = readFileId();
-            String subject = "루리웹 "+elem.get(i).text();
+            //String subject = "루리웹 "+elem.get(i).text();
+            String subject = elem.get(i).select(".deco").text();
+            String content =  subject + " " + elem.get(i).select(".deco").attr("href");
+            //String a = test1.attr("href");
+            //Elements test2 = test1.select("a[href]");
+            //String test = elem.get(i).select("a[").text();
             int sid = Integer.parseInt(elem.get(i).text().split(" ")[0]);
             if(sid > lastId) {
                 System.out.println("sid =========" + sid);
                 System.out.println("subject =========" + subject);
 
-                gmailSend.GmailSet("swkim@bsgglobal.com", subject, subject);
+                gmailSend.GmailSet("swkim@bsgglobal.com", subject, content);
                 creatFileId(sid);
             }
 
