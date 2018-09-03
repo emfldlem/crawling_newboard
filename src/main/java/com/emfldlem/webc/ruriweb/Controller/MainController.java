@@ -87,7 +87,7 @@ public class MainController {
             Element elem2 = elem.get(i).parent().parent().parent().parent().parent().parent().parent().child(0);
 
             String subject ="뽐뿌  " +  elem1.text();
-            String contents = elem1.attr("href");
+            String contents = "http://www.ppomppu.co.kr/zboard/"+elem1.attr("href");
             String No = elem2.text();
 
             int sid = Integer.parseInt(No);
