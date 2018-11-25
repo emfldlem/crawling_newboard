@@ -18,6 +18,8 @@ public class MainController {
 
     GmailSend gmailSend = new GmailSend();
 
+    private static String userEmail = "eiwak@naver.com";
+
 
     @GetMapping("/ruriweb_hotdeal")
     @Scheduled(initialDelay = 10000, fixedDelay = 60000)
@@ -58,7 +60,7 @@ public class MainController {
                 System.out.println("sid =========" + sid);
                 System.out.println("subject =========" + subject);
 
-                gmailSend.GmailSet("swkim@bsgglobal.com", subject, content);
+                gmailSend.GmailSet(userEmail, subject, content);
                 creatFileId(sid,file);
             }
 
@@ -95,7 +97,7 @@ public class MainController {
                 System.out.println("sid =========" + sid);
                 System.out.println("subject =========" + subject);
 
-                gmailSend.GmailSet("swkim@bsgglobal.com", subject, contents);
+                gmailSend.GmailSet(userEmail, subject, contents);
                 creatFileId(sid,file);
             }
 
