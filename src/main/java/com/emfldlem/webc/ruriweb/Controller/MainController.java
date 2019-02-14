@@ -20,62 +20,7 @@ public class MainController {
     private static String userEmail = "eiwak@naver.com";
 
 
-    @GetMapping("/")
-    public String index() {
 
-        try {
-            File file = new File("C:/dev/txt/ruriweb_hotdeal.txt");
-            System.out.println("==================루리웹 스케줄러 시작==================");
-
-            String URL = "http://bbs.ruliweb.com/ps/board/1020";
-            Document doc = null;
-            doc = Jsoup.connect(URL).get();
-            Elements elem = doc.select(".table_body");
-            int count = 0;
-
-            /*공지사항 부분 제거*/
-            while(count < 5) {
-                elem.remove(0);
-                count++;
-            }
-
-            /*최신 글 상위 5개 가져옴*/
-            Collections.reverse(elem);
-            for(int i=0; i<25; i++) {
-                elem.remove(0);
-            }
-
-            for(int i = 0; i<elem.size(); i++) {
-                int lastId = readFileId(file);
-                //String subject = "루리웹 "+elem.get(i).text();
-                String subject = "루리웹  " +  elem.get(i).select(".deco").text();
-                String content =  subject + " " + elem.get(i).select(".deco").attr("href");
-                //String a = test1.attr("href");
-                //Elements test2 = test1.select("a[href]");
-                //String test = elem.get(i).select("a[").text();
-                int sid = Integer.parseInt(elem.get(i).text().split(" ")[0]);
-                if(sid > lastId) {
-                    System.out.println("sid =========" + sid);
-                    System.out.println("subject =========" + subject);
-
-                    gmailSend.GmailSet(userEmail, subject, content);
-                    creatFileId(sid,file);
-                }
-            }
-            System.out.println("==================루리웹 스케줄러 종료==================");
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int count = 0;
-
-
-
-        return "index";
-    }
 
 
     @GetMapping("/ruriweb_hotdeal")
