@@ -2,6 +2,8 @@ package com.emfldlem.webc.ruriweb.Controller;
 
 
 import com.emfldlem.webc.ruriweb.Mail.GmailSend;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,6 +24,11 @@ public class MainController {
 
     @GetMapping("/")
     public String index() {
+        /* json 객체를 담을 json 배열  */
+        JSONArray jsonArray = new JSONArray();
+        /* 최종 객체를 담을 json */
+        JSONObject finalJsonObject = new JSONObject();
+
 
         try {
             File file = new File("C:/dev/txt/ruriweb_hotdeal.txt");
@@ -34,37 +41,37 @@ public class MainController {
             int count = 0;
 
             /*공지사항 부분 제거*/
-            while(count < 5) {
+            while(count < 2) {
                 elem.remove(0);
                 count++;
             }
 
             /*최신 글 상위 5개 가져옴*/
             Collections.reverse(elem);
-            for(int i=0; i<25; i++) {
-                elem.remove(0);
-            }
+            elem.subList(0, 25).clear();
 
-            for(int i = 0; i<elem.size(); i++) {
+            for (Element anElem : elem) {
+                /*새로운 json 객체에 각 각의 요소를 담기*/
+                JSONObject tempJsonObject = new JSONObject();
                 int lastId = readFileId(file);
-                //String subject = "루리웹 "+elem.get(i).text();
-                String subject = "루리웹  " +  elem.get(i).select(".deco").text();
-                String content =  subject + " " + elem.get(i).select(".deco").attr("href");
-                //String a = test1.attr("href");
-                //Elements test2 = test1.select("a[href]");
-                //String test = elem.get(i).select("a[").text();
-                int sid = Integer.parseInt(elem.get(i).text().split(" ")[0]);
-                if(sid > lastId) {
+                String subject = "루리웹  " + anElem.select(".deco").text();
+                String content = subject + " " + anElem.select(".deco").attr("href");
+                int sid = Integer.parseInt(anElem.text().split(" ")[0]);
+                if (sid > lastId) {
                     System.out.println("sid =========" + sid);
                     System.out.println("subject =========" + subject);
-
-                    gmailSend.GmailSet(userEmail, subject, content);
-                    creatFileId(sid,file);
+                    tempJsonObject.put("sid", sid);
+                    tempJsonObject.put("subject", subject);
+                    tempJsonObject.put("content", content);
+                    jsonArray.add(tempJsonObject);
+                    //gmailSend.GmailSet(userEmail, subject, content);
+                   // creatFileId(sid, file);
                 }
             }
+
+            finalJsonObject.put("ruriweb", jsonArray);
+
             System.out.println("==================루리웹 스케줄러 종료==================");
-
-
 
         } catch (IOException e) {
             e.printStackTrace();

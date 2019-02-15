@@ -23,7 +23,7 @@ public class GmailSend {
         //session 생성 및  MimeMessage생성
         Session session = Session.getDefaultInstance(p, auth);
         MimeMessage msg = new MimeMessage(session);
-        String fromName = "발신자 닉네임";
+        String fromName = "발신자";
         String charSet = "UTF-8";
 
         try{
