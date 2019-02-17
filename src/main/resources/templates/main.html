@@ -1,87 +1,57 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Title</title>
-
-    <style>
-
-        button{
-            background:#1AAB8A;
-            color:#fff;
-            border:none;
-            position:relative;
-            height:60px;
-            font-size:1.0em;
-            /*padding:0 2em;*/
-            cursor:pointer;
-            transition:800ms ease all;
-            outline:none;
-            display: inline-block;
-            margin: 0.3em 0 0.3em 0;
-        }
-        button:hover{
-            background:#fff;
-            color:#1AAB8A;
-        }
-        button:before,button:after{
-            content:'';
-            position:absolute;
-            top:0;
-            right:0;
-            height:2px;
-            width:0;
-            background: #1AAB8A;
-            transition:400ms ease all;
-        }
-        button:after{
-            right:inherit;
-            top:inherit;
-            left:0;
-            bottom:0;
-        }
-        button:hover:before,button:hover:after{
-            width:100%;
-            transition:800ms ease all;
-        }
-        .webname {
-            font-size:0.7em;
-        }
-        .subject {
-            font-size:0.8em;
-        }
-        .wrap {
-            width: 100%;
-            text-align: center;
-        }
-        .tac {
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div class="tac">
-    <h2>루리웹 / 뽐뿌 핫딜 핫딜!!!</h2>
-</div>
-<div>
-    <button>루리웹</button>
-    <button>뽐뿌</button>
-    <button>어쩌고1</button>
-    <button>어쩌고2</button>
-</div>
 <div class="wrap">
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
-    <button><span class="webname">루리웹</span><br><span class="subject">[DG] 다이렉트게임즈 워너 프로모션 / 레인보우식스 프로모션 2-13~...</span></button>
+    <div class="tac">
+        <h2>루리웹 / 뽐뿌 핫딜 핫딜!!!</h2>
+    </div>
+    <div>
+        <div>루리웹</div>
+        <div>뽐뿌</div>
+    </div>
+    <div id="list_sector">
+
+    </div>
 </div>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+    $(function () {
+        ruriwebDataCall();
+    });
+
+    function ruriwebDataCall() {
+        $.ajax({
+            type: 'post',
+            url: "/ruriwebDataCall",
+            error: onError,
+            success: onSuccess
+
+        });
+    }
+
+    function onError(resultData) {
+        console.log(resultData);
+    }
+
+    function onSuccess(resultData) {
+        $('#list_sector').html('');
+        $(resultData.ruriweb).each(function () {
+            $('#list_sector').append("<button><span class=\"webname\">루리웹</span><br><span class=\"subject\">" + this.subject + "</span></button>")
+        })
+
+
+    }
+
+
+</script>
 
 </body>
 </html>

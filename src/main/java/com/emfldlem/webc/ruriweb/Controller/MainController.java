@@ -22,7 +22,7 @@ public class MainController {
     private static String userEmail = "eiwak@naver.com";
 
 
-    @GetMapping("/")
+    @GetMapping("/1111")
     public String index() {
         /* json 객체를 담을 json 배열  */
         JSONArray jsonArray = new JSONArray();
@@ -41,7 +41,7 @@ public class MainController {
             int count = 0;
 
             /*공지사항 부분 제거*/
-            while(count < 2) {
+            while (count < 2) {
                 elem.remove(0);
                 count++;
             }
@@ -65,7 +65,7 @@ public class MainController {
                     tempJsonObject.put("content", content);
                     jsonArray.add(tempJsonObject);
                     //gmailSend.GmailSet(userEmail, subject, content);
-                   // creatFileId(sid, file);
+                    // creatFileId(sid, file);
                 }
             }
 
@@ -79,7 +79,9 @@ public class MainController {
 
         int count = 0;
 
+        return "main";
 
+    }
 
     @GetMapping("/ruriweb_hotdeal")
    // @Scheduled(initialDelay = 10000, fixedDelay = 60000)
