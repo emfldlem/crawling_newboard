@@ -81,10 +81,6 @@ public class MainController {
 
 
 
-        return "index";
-    }
-
-
     @GetMapping("/ruriweb_hotdeal")
    // @Scheduled(initialDelay = 10000, fixedDelay = 60000)
     public void ruriweb_hotdeal()  throws IOException {
