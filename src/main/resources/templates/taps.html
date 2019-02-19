@@ -151,7 +151,6 @@
     $(function () {
         ruriwebDataCall();
     });
-
     function ruriwebDataCall() {
         $.ajax({
             type: 'post',
@@ -161,11 +160,9 @@
 
         });
     }
-
     function onError(resultData) {
         console.log(resultData);
     }
-
     function onSuccess(resultData) {
         $('#list_sector').html('');
         $(resultData.ruriweb).each(function () {
