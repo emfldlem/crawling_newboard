@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta name="description" content="hot deal list">
+    <meta name="author" content="Neogul">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- Mobile Specific Meta Tag-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Favicon and Apple Icons-->
+    <!--<link rel="icon" type="image/x-icon" href="../favicon.ico">-->
+   <!-- <link rel="icon" type="image/png" href="../favicon.png">-->
+
     <title>Title</title>
+    <link id="mainStyles" rel="stylesheet" media="screen" th:href="@{/css/uniStyles.min.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
 <div class="wrap">
+    <h6 class="text-muted text-normal text-uppercase padding-top-2x mt-2">Tabs with Icons</h6>
+    <hr class="margin-bottom-1x">
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item"><a class="nav-link active" href="#archive" data-toggle="tab" role="tab"><i class="icon-help"></i>Help</a></li>
+        <li class="nav-item"><a class="nav-link" href="#profile5" data-toggle="tab" role="tab"><i class="icon-head"></i>Profile</a></li>
+        <li class="nav-item"><a class="nav-link" href="#settings5" data-toggle="tab" role="tab"><i class="icon-cog"> </i>Settings</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="archive" role="tabpanel">
+            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        </div>
+        <div class="tab-pane fade" id="profile5" role="tabpanel">
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        </div>
+        <div class="tab-pane fade" id="settings5" role="tabpanel">
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan.</p>
+        </div>
+    </div>
+
+
     <div class="tac">
         <h2>루리웹 / 뽐뿌 핫딜 핫딜!!!</h2>
     </div>

@@ -27,6 +27,12 @@ public class webController {
         return "main";
     }
 
+    @GetMapping("/taps")
+    public String taps() {
+        return "taps";
+    }
+
+
 
     @PostMapping("ruriwebDataCall")
     public @ResponseBody
@@ -52,8 +58,8 @@ public class webController {
             }
 
             /*최신 글 상위 5개 가져옴*/
-            Collections.reverse(elem);
-            elem.subList(0, 25).clear();
+            /*Collections.reverse(elem);
+            elem.subList(0, 25).clear();*/
 
             for (Element anElem : elem) {
                 /*새로운 json 객체에 각 각의 요소를 담기*/

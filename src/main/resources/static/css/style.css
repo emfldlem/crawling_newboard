@@ -1,17 +1,17 @@
 button {
-    background: #1AAB8A;
+    background: #374250;
     color: #fff;
     border: none;
     position: relative;
     height: 60px;
-    font-size: 1.0em;
+    font-size: 1.4em;
     /*padding:0 2em;*/
     cursor: pointer;
     transition: 800ms ease all;
     outline: none;
     display: inline-block;
     margin: 0.3em 0 0.3em 0;
-    min-width: 300px;
+    min-width: 500px;
 }
 
 button:hover {
