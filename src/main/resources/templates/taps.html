@@ -44,9 +44,9 @@
             </div>
             <div class="column">
                 <ul class="breadcrumbs">
-                    <li>루리웹</li>
+                    <li onclick="ruriwebBtnClick()">루리웹</li>
                     <li class="separator">&nbsp;</li>
-                    <li>뽐뿌</li>
+                    <li onclick="ppomppuBtnClick()">뽐뿌</li>
                     <li class="separator">&nbsp;</li>
                     <li>기타 등등</li>
                 </ul>
@@ -65,11 +65,11 @@
         </div>
     </div>
     <!-- Site Footer-->
-    <footer class="site-footer">
+   <!-- <footer class="site-footer">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-6">
-                    <!-- Contact Info-->
+                    &lt;!&ndash; Contact Info&ndash;&gt;
                     <section class="widget widget-light-skin">
                         <h3 class="widget-title">Get In Touch With Us</h3>
                         <p class="text-white">Phone: 00 33 169 7720</p>
@@ -81,13 +81,13 @@
                     </section>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <!-- Mobile App Buttons-->
+                    &lt;!&ndash; Mobile App Buttons&ndash;&gt;
                     <section class="widget widget-light-skin">
                         <h3 class="widget-title">Our Mobile App</h3><a class="market-button apple-button mb-light-skin" href="#"><span class="mb-subtitle">Download on the</span><span class="mb-title">App Store</span></a><a class="market-button google-button mb-light-skin" href="#"><span class="mb-subtitle">Download on the</span><span class="mb-title">Google Play</span></a><a class="market-button windows-button mb-light-skin" href="#"><span class="mb-subtitle">Download on the</span><span class="mb-title">Windows Store</span></a>
                     </section>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <!-- About Us-->
+                    &lt;!&ndash; About Us&ndash;&gt;
                     <section class="widget widget-links widget-light-skin">
                         <h3 class="widget-title">About Us</h3>
                         <ul>
@@ -100,7 +100,7 @@
                     </section>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <!-- Account / Shipping Info-->
+                    &lt;!&ndash; Account / Shipping Info&ndash;&gt;
                     <section class="widget widget-links widget-light-skin">
                         <h3 class="widget-title">Account &amp; Shipping Info</h3>
                         <ul>
@@ -117,19 +117,19 @@
             <hr class="hr-light mt-2 margin-bottom-2x">
             <div class="row">
                 <div class="col-md-7 padding-bottom-1x">
-                    <!-- Payment Methods-->
+                    &lt;!&ndash; Payment Methods&ndash;&gt;
                     <div class="margin-bottom-1x" style="max-width: 615px;"><img src="../img/payment_methods.png" alt="Payment Methods">
                     </div>
                 </div>
                 <div class="col-md-5 padding-bottom-1x">
                     <div class="margin-top-1x hidden-md-up"></div>
-                    <!--Subscription-->
+                    &lt;!&ndash;Subscription&ndash;&gt;
                     <form class="subscribe-form" action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;amp;id=1194bb7544" method="post" target="_blank" novalidate>
                         <div class="clearfix">
                             <div class="input-group input-light">
                                 <input class="form-control" type="email" name="EMAIL" placeholder="Your e-mail"><span class="input-group-addon"><i class="icon-mail"></i></span>
                             </div>
-                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                            &lt;!&ndash; real people should not fill this in and expect good things - do not remove this or risk form bot signups&ndash;&gt;
                             <div style="position: absolute; left: -5000px;" aria-hidden="true">
                                 <input type="text" name="b_c7103e2c981361a6639545bd5_1194bb7544" tabindex="-1">
                             </div>
@@ -138,10 +138,10 @@
                     </form>
                 </div>
             </div>
-            <!-- Copyright-->
+            &lt;!&ndash; Copyright&ndash;&gt;
             <p class="footer-copyright">© All rights reserved. Made with &nbsp;<i class="icon-heart text-danger"></i><a href="http://rokaux.com/" target="_blank"> &nbsp;by rokaux</a></p>
         </div>
-    </footer>
+    </footer>-->
 </div>
 
 
@@ -151,29 +151,60 @@
     $(function () {
         ruriwebDataCall();
     });
+
+    function ruriwebBtnClick(){
+        var $list_sector = $('#list_sector');
+        $list_sector.html('');
+        ruriwebDataCall();
+    }
+
+
     function ruriwebDataCall() {
         $.ajax({
             type: 'post',
             url: "/ruriwebDataCall",
             error: onError,
-            success: onSuccess
+            success: ruriwebDataCall_onSuccess
 
         });
     }
     function onError(resultData) {
         console.log(resultData);
     }
-    function onSuccess(resultData) {
+    function ruriwebDataCall_onSuccess(resultData) {
         $('#list_sector').html('');
         $(resultData.ruriweb).each(function () {
             $('#list_sector').append("<button><span class=\"webname\">루리웹</span><br><span class=\"subject\">" + this.subject + "</span></button>")
         })
     }
 
+    function ppomppuBtnClick(){
+        var $list_sector = $('#list_sector');
+        $list_sector.html('');
+        ppomppuDatacall();
+    }
+
+    function ppomppuDatacall() {
+        $.ajax({
+            type: 'post',
+            url: "/ppomppuDataCall",
+            error: onError,
+            success: ppompuDataCall_onSuccess
+
+        });
+    }
+
+    function ppompuDataCall_onSuccess(resultData) {
+        $('#list_sector').html('');
+        $(resultData.ppompu).each(function () {
+            $('#list_sector').append("<button><span class=\"webname\">뽐뿌</span><br><span class=\"subject\">" + this.subject + "</span></button>")
+        })
+    }
+
     $('.breadcrumbs li').on("click", function() {
         $('.breadcrumbs li').each(function () {
             $(this).removeClass('li_active');
-        })
+        });
         $(this).addClass('li_active');
     })
 
