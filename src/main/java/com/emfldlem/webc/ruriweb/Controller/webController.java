@@ -60,8 +60,8 @@ public class webController {
             }
 
             /*최신 글 상위 5개 가져옴*/
-            Collections.reverse(elem);
-            elem.subList(0, 3).clear();
+            /*Collections.reverse(elem);
+            elem.subList(0, 3).clear();*/
 
             for (Element anElem : elem) {
                 /*새로운 json 객체에 각 각의 요소를 담기*/

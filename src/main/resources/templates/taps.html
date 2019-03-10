@@ -148,6 +148,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
 
+    var linkGruop = new Map();
+
     $(function () {
         ruriwebDataCall();
     });
@@ -172,10 +174,13 @@
         console.log(resultData);
     }
     function ruriwebDataCall_onSuccess(resultData) {
+
         $('#list_sector').html('');
         $(resultData.ruriweb).each(function () {
-            $('#list_sector').append("<button><span class=\"webname\">루리웹</span><br><span class=\"subject\">" + this.subject + "</span></button>")
+            $('#list_sector').append("<button onclick=\"click_iframe("+this.sid+", this)\"><span class=\"webname\">루리웹</span><br><span class=\"subject\">" + this.subject + "</span></button>");
+            linkGruop.set(this.sid, this.link);
         })
+
     }
 
     function ppomppuBtnClick(){
@@ -197,7 +202,9 @@
     function ppompuDataCall_onSuccess(resultData) {
         $('#list_sector').html('');
         $(resultData.ppompu).each(function () {
-            $('#list_sector').append("<button><span class=\"webname\">뽐뿌</span><br><span class=\"subject\">" + this.subject + "</span></button>")
+
+            linkGruop.set(this.sid, this.link);
+            $('#list_sector').append("<button onclick=\"click_iframe("+this.sid+", this)\"><span class=\"webname\">뽐뿌</span><br><span class=\"subject\" >" + this.subject + "</span></button>")
         })
     }
 
@@ -207,6 +214,17 @@
         });
         $(this).addClass('li_active');
     })
+
+
+    function click_iframe(sid, that) {
+
+        $('body').find('iframe').remove();
+        var $this = $(that);
+        var url = linkGruop.get(sid);
+        $this.after("<iframe src=\""+url+"\" scrolling=\"yes\" style=\"height: 600px; width: 500px;\"></iframe>");
+
+
+    }
 
 
 </script>
